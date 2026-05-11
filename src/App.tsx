@@ -9,23 +9,25 @@ import AdminPage from "./pages/AdminPage";
 import { me as apiMe, logout as apiLogout, getToken, setToken } from "./lib/clientAuth";
 
 function RequireAuth({ user, children }: { user: any | null | undefined; children: JSX.Element }) {
-  if (user === undefined) return <div>Checking authentication…</div>;
+  if (user === undefined) return <div className="mx-auto max-w-md rounded-xl border border-border bg-card/80 p-6 shadow-sm">Checking authentication…</div>;
   if (user === null) return <Navigate to="/login" replace />;
   return children;
 }
 
 function RequireAdmin({ user, children }: { user: any | null | undefined; children: JSX.Element }) {
-  if (user === undefined) return <div>Checking authentication…</div>;
+  if (user === undefined) return <div className="mx-auto max-w-md rounded-xl border border-border bg-card/80 p-6 shadow-sm">Checking authentication…</div>;
   if (user === null) return <Navigate to="/login" replace />;
-  if (!user?.is_admin) return <div className="max-w-md mx-auto p-4 text-destructive">Not authorized. Admins only.</div>;
+  if (!user?.is_admin) return <div className="mx-auto max-w-md rounded-xl border border-border bg-card/80 p-6 text-destructive shadow-sm">Not authorized. Admins only.</div>;
   return children;
 }
 
 function Home() {
   return (
-    <div>
-      <h1>Home</h1>
-      <p>Welcome to the app. Use the links above to register or login.</p>
+    <div className="rounded-xl border border-border bg-card/80 p-6 shadow-sm">
+      <h1 className="text-3xl font-semibold tracking-tight">Home</h1>
+      <p className="mt-3 max-w-2xl leading-relaxed text-muted-foreground">
+        Welcome to the app. Use the links above to register or login.
+      </p>
     </div>
   );
 }
@@ -81,32 +83,32 @@ function AppInner({ user, setUser }: { user: any | null | undefined; setUser: (u
   };
 
   return (
-    <div className="p-4">
-      <nav className="mb-3 flex flex-wrap items-center gap-2 text-sm">
-        <Link to="/" className="text-primary hover:underline">Home</Link>
+    <div className="min-h-screen bg-[linear-gradient(180deg,oklch(0.99_0.004_85),oklch(0.97_0.006_85))] p-4">
+      <nav className="mx-auto mb-4 flex w-full max-w-5xl flex-wrap items-center gap-2 rounded-xl border border-border bg-background/90 p-3 text-sm shadow-sm">
+        <Link to="/" className="rounded-md px-3 py-1.5 font-medium text-primary transition hover:bg-accent hover:text-accent-foreground">Home</Link>
         {user === null && (
           <>
             <span className="text-muted-foreground">|</span>
-            <Link to="/register" className="text-primary hover:underline">Register</Link>
+            <Link to="/register" className="rounded-md px-3 py-1.5 font-medium text-primary transition hover:bg-accent hover:text-accent-foreground">Register</Link>
             <span className="text-muted-foreground">|</span>
-            <Link to="/login" className="text-primary hover:underline">Login</Link>
+            <Link to="/login" className="rounded-md px-3 py-1.5 font-medium text-primary transition hover:bg-accent hover:text-accent-foreground">Login</Link>
           </>
         )}
         <span className="text-muted-foreground">|</span>
-        <Link to="/user" className="hover:underline">User</Link>
+        <Link to="/user" className="rounded-md px-3 py-1.5 transition hover:bg-accent hover:text-accent-foreground">User</Link>
         <span className="text-muted-foreground">|</span>
-        <Link to="/admin" className="hover:underline">Admin</Link>
+        <Link to="/admin" className="rounded-md px-3 py-1.5 transition hover:bg-accent hover:text-accent-foreground">Admin</Link>
         {user && (
-          <span className="ml-3 flex items-center gap-2 text-sm">
+          <span className="ml-auto flex items-center gap-2 rounded-md border border-border bg-card px-3 py-1.5 text-sm">
             <span>Logged in as <strong>{user.username}</strong></span>
-            <button onClick={handleLogout} className="ml-2 px-2 py-1 rounded bg-gray-200 hover:bg-gray-300 text-sm">Logout</button>
+            <button onClick={handleLogout} className="rounded-md border border-border px-2 py-1 text-sm transition hover:bg-accent">Logout</button>
           </span>
         )}
       </nav>
 
-      <hr />
+      <hr className="mx-auto max-w-5xl border-border/80" />
 
-      <div className="mt-3">
+      <div className="mx-auto mt-4 w-full max-w-5xl rounded-xl border border-border bg-background/90 p-4 shadow-sm sm:p-6">
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/register" element={user ? <Navigate to="/user" replace /> : <Register onAuth={handleAuth} />} />

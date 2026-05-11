@@ -31,7 +31,7 @@ export function Register({ onAuth }: { onAuth?: (user: any, token: string) => vo
   };
 
   return (
-    <div className="max-w-md mx-auto p-4">
+    <div className="mx-auto max-w-md rounded-xl border border-border bg-card/80 p-6 shadow-sm">
       <h2 className="text-2xl font-semibold mb-4">Register</h2>
 
       <form onSubmit={handleSubmit} className="grid gap-4">
